@@ -32,5 +32,21 @@ looking for .textile files in _posts moving them to _old_posts
 226 textile files converted
 ```
 
-#### NOTE
-The `tomd` script has been run successfully on OSX on a couple of repos - YMMV.
+#### running under Windows
+
+The latest Pandoc for Windows can be downloaded from https://github.com/jgm/pandoc/releases/.
+
+In addition to pandoc, the `tomd` script requires a unix-y shell and utilities - the easiest way to get those for Windows is by installing the default set of [cygwin](https://cygwin.com/install.html) utilities.
+
+Finally, before running tomd, i had to install `dos2unix` and run it against the `tomd` file to remove extra linefeeds.
+
+Here is the output of running `tomd` against the same repo in the cygwin shell.
+```
+$ script/tomd
+checking for sed, awk, and pandoc
+/usr/bin/sed
+GNU Awk 4.1.3, API: 1.1 (GNU MPFR 3.1.3, GNU MP 6.1.0)
+pandoc.exe 1.16.0.2
+looking for .textile files in _posts moving them to _old_posts
+226 textile files converted
+```

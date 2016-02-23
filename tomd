@@ -9,7 +9,7 @@ set -e
 
 # make sure the following exist
 echo "checking for sed, awk, and pandoc"
-which sed | sed
+which sed | sed '1 q'
 awk --version
 pandoc -v | sed '1 q'
 
