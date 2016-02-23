@@ -9,9 +9,9 @@ set -e
 
 # make sure the following exist
 echo "checking for sed, awk, and pandoc"
-which sed | sed '1 q'
-awk --version
-pandoc -v | sed '1 q'
+which sed     | sed '1 q'
+awk --version | sed '1 q'
+pandoc -v     | sed '1 q'
 
 # script dir
 DIR=`dirname $0`
