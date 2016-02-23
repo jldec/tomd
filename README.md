@@ -1,5 +1,22 @@
 # tomd
 
+### Automated conversion from .textile to .md with pandoc
+
+Users with many textile files in their Jekyll Pages site should consider using [pandoc](http://pandoc.org), a utility for converting between different markup formats. E.g. To convert `foo.textile` to `foo.md`
+
+```sh
+pandoc --wrap=preserve -f textile -t markdown_github <foo.textile >foo.md
+```
+
+##### Limitations
+Unfortunately pandoc may change content in unwanted ways when it encounters:
+
+- YAML frontmatter at the top of .textile files
+- `{% highlight %}` blocks
+- `<notextile>` blocks
+
+To get around these limitations, this [`tomd`](https://github.com/jldec/tomd) shell script calls [awk](http://www.grymoire.com/Unix/Awk.html) and [sed](http://www.grymoire.com/Unix/Sed.html) to filter out those sections and then re-insert them after pandoc has converted the rest the file.
+
 ##### To run `tomd`
 
 1. Install pandoc from https://github.com/jgm/pandoc/releases
