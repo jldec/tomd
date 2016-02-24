@@ -1,35 +1,28 @@
 # tomd
+## Automated conversion from .textile to .md with pandoc
 
-### Automated conversion from .textile to .md with pandoc
+Users with many Textile files in their Jekyll Pages site can leverage  [pandoc](http://pandoc.org), a utility for converting between different markup formats.
 
-Users with many textile files in their Jekyll Pages site should consider using [pandoc](http://pandoc.org), a utility for converting between different markup formats. E.g. To convert `foo.textile` to `foo.md`
-
-```sh
-pandoc --wrap=preserve -f textile -t markdown_github <foo.textile >foo.md
-```
-
-##### Limitations
-Unfortunately pandoc may change content in unwanted ways when it encounters:
+This [`tomd`](https://github.com/jldec/tomd) shell script uses [awk](http://www.grymoire.com/Unix/Awk.html) and [sed](http://www.grymoire.com/Unix/Sed.html) to overcome the biggest limitations of pandoc, filtering out the sections listed below, which pandoc doesn't recognize, and re-inserting them into the converted Markdown.
 
 - YAML frontmatter at the top of .textile files
 - `{% highlight %}` blocks
 - `<notextile>` blocks
 
-To get around these limitations, this [`tomd`](https://github.com/jldec/tomd) shell script calls [awk](http://www.grymoire.com/Unix/Awk.html) and [sed](http://www.grymoire.com/Unix/Sed.html) to filter out those sections and then re-insert them after pandoc has converted the rest the file.
+NOTE: This process may still produce some incorrect output. Known issues include:
 
-##### To run `tomd`
+- Lost CSS references e.g. from Textile `.p(classname)`
+- Literal HTML mixed with unconverted Textile formatting
 
-1. Install pandoc from https://github.com/jgm/pandoc/releases
-2. Copy the tomd script and 2 awk files into your Jekyll project and run the script from there.
+### To run `tomd`
 
-```
-git clone https://github.com/jldec/tomd.git
-cp tomd/tomd tomd/*.awk your-jekyll-project-folder
-cd your-jekyll-project-folder
-./tomd
-```
+1. Install pandoc from https://github.com/jgm/pandoc/releases or [here](http://pandoc.org/installing.html).
+2. [Download](https://github.com/jldec/tomd/archive/v1.0.zip) or clone this repo.
+3. Copy the `tomd` script and the 2 awk files into your Jekyll project.
+4. Run the script from inside your Jekyll project folder.
+5. Validate the results.
 
-The script will look for `.textile` files in the `_posts` directory, convert them to `.md`, and leave backups of the original `textile` files in a new directory called `_old_posts`. You can override the names of the 2 directories with 2 arguments to the script.
+The script will look for any `.textile` files in the `_posts` directory, convert them to `.md`, and leave backups of the original `.textile` files in a new directory called `_old_posts`. You can override the names of the directories with arguments to the script.
 
 If everything works, you should see output like:
 
@@ -40,10 +33,10 @@ checking for sed, awk, and pandoc
 awk version 20070501
 pandoc 1.16.0.2
 looking for .textile files in _posts moving them to _old_posts
-nnn textile files converted
+58 textile files converted
 ```
 
-#### Running under Windows
+##### Running under Windows
 
 The latest version of pandoc for Windows can be downloaded from https://github.com/jgm/pandoc/releases/.
 
