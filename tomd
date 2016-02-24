@@ -6,6 +6,7 @@
 # remember to keep a backup of everything, and USE THIS AT YOUR OWN RISK.
 
 set -e
+set -o pipefail
 
 # make sure the following exist
 echo "checking for sed, awk, and pandoc"
