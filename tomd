@@ -26,7 +26,7 @@ fi
 
 # archive dir
 if [ $2 ] ; then
-  OLDDIR=$1
+  OLDDIR=$2
 else
   OLDDIR=_old_posts
 fi
